@@ -1,0 +1,16 @@
+langchain_groq
+langchain_core
+pymysql
+scipy
+Flask
+Flask-Cors
+groq
+tensorflow
+os
+pandas
+numpy
+matplotlib
+notebook
+seaborn
+pyYAML
+tqdm
