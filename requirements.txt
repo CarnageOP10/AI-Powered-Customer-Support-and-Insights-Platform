@@ -6,7 +6,6 @@ Flask
 Flask-Cors
 groq
 tensorflow
-os
 pandas
 numpy
 matplotlib
