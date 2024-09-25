@@ -4,6 +4,10 @@ pymysql
 scipy
 Flask
 Flask-Cors
+flask_sqlalchemy
+wtforms
+flask_wtforms
+psycopg2
 groq
 tensorflow
 pandas
