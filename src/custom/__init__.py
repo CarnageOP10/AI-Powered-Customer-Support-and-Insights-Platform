@@ -10,7 +10,7 @@ from langchain_core.pydantic_v1 import BaseModel, Field
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:Kratos1000Kratos@localhost:2000/queryDB'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:Kratos1000Kratos@localhost:2000/querydb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
