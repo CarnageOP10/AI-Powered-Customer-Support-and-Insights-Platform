@@ -7,6 +7,14 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 
 
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:Kratos1000Kratos@localhost:2000/queryDB'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
 # --------------------------------------------------------------------------------------------------------------
 groq_api_key = os.getenv("groq_api_key")
 langchain_api_key = os.getenv("langchain_api_key")
@@ -30,6 +38,9 @@ class QueryClassification(BaseModel):
     severity: int = Field(
         description="Classify the severity of the complain on a scale from 0 to 3. 0 being normal and 3 being needs urgent care."
     )
+    product_desc : str = Field(
+        description="Description of the product complain in short."
+    )
 
 # Create structured LLM grader
 structured_llm_grader = model.with_structured_output(QueryClassification)
@@ -37,6 +48,7 @@ structured_llm_grader = model.with_structured_output(QueryClassification)
 # Define system prompt for disaster classification
 system_prompt = """You are an expert in customer query management. Given the description of a product complain, classify it into one of the following types: 'GPU', 'CPU' and 'Monitor'. 
     Additionally, assess the severity of the complain on a scale from 0 to 3, where 0 indicates normal and 3 indicates needs urgent care. 
+    Also provide a short description of the product complain.
     Provide accurate and detailed classifications based on the given description."""
 
 # Create the prompt template
@@ -50,13 +62,5 @@ product_prompt = ChatPromptTemplate.from_messages(
 # Combine prompt template with structured output
 query_classifier = product_prompt | structured_llm_grader
 # --------------------------------------------------------------------------------------------------------------
-
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:Kratos1000Kratos@localhost:2000/queryDB'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
 
 from custom import routes

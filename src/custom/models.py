@@ -8,3 +8,5 @@ class Query(db.Model):
     city_name = db.Column(db.String(50), nullable=False)
     pincode = db.Column(db.String(6), nullable=False)
     description = db.Column(db.String(5000), nullable=False)
+    product_type = db.Column(db.String(50), nullable=False)
+    severity = db.Column(db.Integer, nullable=False)
