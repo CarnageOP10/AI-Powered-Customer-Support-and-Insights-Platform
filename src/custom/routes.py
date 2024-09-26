@@ -3,7 +3,7 @@ from flask import render_template, redirect, url_for, flash, request
 from custom.forms import RaiseForm
 from custom.models import Query
 from custom import db
-from custom import query_classifier
+from custom.llm import query_classifier
 
 @app.route('/')
 @app.route('/home')
@@ -25,12 +25,13 @@ def raiseAlert_form():
         query = Query(
             name=form.name.data,
             mobile_number=form.mo_number.data,
-            state_name=form.state_name.data,
-            city_name=form.city_name.data,
+            state_name=form.state_name.data.upper(),
+            city_name=form.city_name.data.lower(),
             pincode=form.pincode.data,
             description=product_info.product_desc,
             product_type = product_info.product_type,
             severity = product_info.severity
+
         )
 
         db.session.add(query)
@@ -43,3 +44,4 @@ def raiseAlert_form():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
 
     return render_template('form.html', form=form)
+
