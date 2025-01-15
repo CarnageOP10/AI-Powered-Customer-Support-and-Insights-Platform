@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Powered Customer Support and Insights Platform</title>
+    <title></title>
 </head>
 <body>
     <h1>AI-Powered Customer Support and Insights Platform</h1>
